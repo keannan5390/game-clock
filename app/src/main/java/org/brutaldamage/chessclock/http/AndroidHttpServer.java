@@ -26,9 +26,10 @@ public class AndroidHttpServer extends NanoHTTPD {
 
 
     @Override
-    public Response serve(IHTTPSession session) {
-
-        if(session.getUri().contains("data")) {
+    public Response serve(IHTTPSession session)
+    {
+        if(session.getUri().contains("data"))
+        {
             String json = "{" +
                     "\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
                     "\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
@@ -36,36 +37,16 @@ public class AndroidHttpServer extends NanoHTTPD {
 
             return newFixedLengthResponse(Response.Status.OK, "application/json", json);
         }
+        else if(session.getUri().contains("/files/logic.js"))
+        {
+            String html = LoadHtmlFile(R.raw.logic);
+            return newFixedLengthResponse(Response.Status.OK, "application/javascript", html);
+        }
         else
         {
             String html = LoadHtmlFile(R.raw.web);
             return newFixedLengthResponse(html);
         }
-
-
-//        String player1Time = Global.GAME_STATE.leftPlayerTime();
-//        String player2Time = Global.GAME_STATE.rightPlayerTime();
-//        int leftPlayerTurn = Global.GAME_STATE.numLeftPlayerMoves;
-//        int rightPlayerTurn = Global.GAME_STATE.numRightPlayerMoves;
-//
-//        String html = "<html>\n" +
-//                " <meta http-equiv=\"refresh\" content=\"0.5\" />" +
-//                "<body>\n" +
-//                "   <h1 id=\"title\">Brutal Damage Game Clock</h1>" +
-//                "    <div id=\"player1Info\">\n" +
-//                "        <h2>Left Player</h2>\n" +
-//                "        <p>Time: <span id=\"leftPlayerTime\">" + player1Time +"</span></p>\n" +
-//                "        <p>Turn: <span id=\"leftPlayerTurn\">" + leftPlayerTurn +"</span></p>\n" +
-//                "    </div>\n" +
-//                "    <div id=\"player2Info\">\n" +
-//                "        <h2>Right Player</h2>\n" +
-//                "        <p>Time: <span id=\"rightPlayerTime\">" + player2Time +"</span></p>\n" +
-//                "        <p>Turn: <span id=\"rightPlayerTurn\">" + rightPlayerTurn +"</span></p>\n" +
-//                "    </div>\n" +
-//                "</body>\n" +
-//                "</html>";
-
-
     }
 
     private String LoadHtmlFile(int resourceId) {
@@ -77,6 +58,7 @@ public class AndroidHttpServer extends NanoHTTPD {
                     StringBuilder result = new StringBuilder();
                     String line;
                     while ((line = reader.readLine()) != null) {
+                        result.append("\n");
                         result.append(line);
                     }
                     return result.toString();
