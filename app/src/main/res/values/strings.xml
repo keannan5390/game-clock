@@ -15,6 +15,10 @@
 	<string name="resumeButtonText">Resume</string>
     <string name="newGameButtonText">New Game</string>
 	<string name="optionsButtonText">Options</string>
+
+    <!-- Options strings, http url -->
+    <string name="httpPrefGroup">Http Server</string>
+    <string name="httpUrl">Url</string>
 	
     <!-- Options strings, time (no handicap) -->
     <string name="timePrefGroupNoHandicap">Time (No Handicap)</string>

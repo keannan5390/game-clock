@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<PreferenceCategory
+		android:key="httpUrlGroup"
+		android:title="@string/httpPrefGroup">
+
+		<EditTextPreference
+			android:key="httpServerUrl"
+			android:title="@string/httpUrl"
+			android:summary="Url to access the game info from a web browser">
+		</EditTextPreference>
+
+	</PreferenceCategory>
 
 	<PreferenceCategory android:key="timeNoHandicapGroup"
 	android:title="@string/timePrefGroupNoHandicap">
