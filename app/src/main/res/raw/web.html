@@ -40,20 +40,20 @@
             function(json) {
              console.log(json);
 
-             var leftTurn = json["left"]["turn"];
+            var leftTurn = json["left"]["turn"];
             var rightTurn = json["right"]["turn"];
+            var turn = Math.max(leftTurn, rightTurn);
 
             var turnText = "";
             if (leftTurn == rightTurn)
             {
-                if(leftTurn === 0)
-                    leftTurn = 1;
+                if(turn === 0)
+                    turn = 1;
 
-                turnText = leftTurn + "B";
+                turnText = turn + "B";
             }
-            else turnText = leftTurn + "A";
-
-            document.getElementById("turn").innerText = turnText;
+            else
+                turnText = turn + "A";
 
             document.getElementById("leftPlayerTime").innerText = json["left"]["time"];
             document.getElementById("rightPlayerTime").innerText = json["right"]["time"];
