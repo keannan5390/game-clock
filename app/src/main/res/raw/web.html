@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
     <body>
         <div id="turnInfo">
             <h2>Turn:
@@ -29,30 +31,26 @@
     </body>
     <script type="text/javascript">
     var hostname = window.location.hostname;
-    var webSocket;
 
-    function openSocket() {
-        webSocket = new WebSocket("ws://" + hostname + ":8081", "protocolOne");
-        webSocket.onopen = function (evt) {
-            console.log('sending ping...');
-            webSocket.send('ping', '0');
-        };
-        webSocket.onclose = function (evt) {
-            console.log(evt);
-        };
-        webSocket.onmessage = function (evt) {
-            console.log(evt.data);
+    function keepAlive() {
+        var timeout = 500;
 
-            if(evt.data === "ping") return;
+        $.getJSON(
+            "http://" + hostname + ":8080/data",
+            function(json) {
+             console.log(json);
 
-            var json = JSON.parse(evt.data);
-
-            var leftTurn = json["left"]["turn"];
+             var leftTurn = json["left"]["turn"];
             var rightTurn = json["right"]["turn"];
 
             var turnText = "";
             if (leftTurn == rightTurn)
+            {
+                if(leftTurn === 0)
+                    leftTurn = 1;
+
                 turnText = leftTurn + "B";
+            }
             else turnText = leftTurn + "A";
 
             document.getElementById("turn").innerText = turnText;
@@ -62,29 +60,12 @@
 
             document.getElementById("leftPlayerCP").innerText = json["left"]["cp"];
             document.getElementById("rightPlayerCP").innerText = json["right"]["cp"];
-        };
-        webSocket.onerror = function (evt) {
-            console.log(evt);
-        };
-    };
-
-
-    function keepAlive() {
-        var timeout = 3000;
-        if (webSocket.readyState == webSocket.OPEN) {
-            console.log('sending ping...');
-            webSocket.send('ping', timerId);
-        }
+             }
+        );
 
         timerId = setTimeout(keepAlive, timeout);
     };
-    function cancelKeepAlive() {
-        if (timerId) {
-            clearTimeout(timerId);
-        }
-    };
 
-    openSocket();
     keepAlive();
 </script>
 

@@ -28,7 +28,20 @@ public class AndroidHttpServer extends NanoHTTPD {
     @Override
     public Response serve(IHTTPSession session) {
 
-        String html = LoadHtmlFile(R.raw.web);
+        if(session.getUri().contains("data")) {
+            String json = "{" +
+                    "\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
+                    "\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
+                    + "}";
+
+            return newFixedLengthResponse(Response.Status.OK, "application/json", json);
+        }
+        else
+        {
+            String html = LoadHtmlFile(R.raw.web);
+            return newFixedLengthResponse(html);
+        }
+
 
 //        String player1Time = Global.GAME_STATE.leftPlayerTime();
 //        String player2Time = Global.GAME_STATE.rightPlayerTime();
@@ -52,7 +65,7 @@ public class AndroidHttpServer extends NanoHTTPD {
 //                "</body>\n" +
 //                "</html>";
 
-        return newFixedLengthResponse(html);
+
     }
 
     private String LoadHtmlFile(int resourceId) {
