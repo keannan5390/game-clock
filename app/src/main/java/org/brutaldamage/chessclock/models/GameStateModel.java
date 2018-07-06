@@ -111,7 +111,10 @@ public class GameStateModel implements SaveStateModel {
 	public int numLeftPlayerMoves = 0;
 	/** Number of moves the right player made */
 	public int numRightPlayerMoves = 0;
-	
+
+	public int numLeftPlayerCP = 0;
+	public int numRightPlayerCP = 0;
+
 	// == Listener ==
 	private OnTimeIncreasedListener mListener = null;
 	
@@ -237,6 +240,12 @@ public class GameStateModel implements SaveStateModel {
 				break;
 		}
 		return toReturn;
+	}
+
+	public void updatePlayerCP(int leftCP, int rightCP)
+	{
+		numLeftPlayerCP += leftCP;
+		numRightPlayerCP += rightCP;
 	}
 	
 	/**

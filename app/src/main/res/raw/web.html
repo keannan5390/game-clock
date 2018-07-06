@@ -10,14 +10,20 @@
 
         <div id="leftPlayerInfo">
             <h2>Left Player</h2>
-            <p>Time:
+            <p class="timeInfo">Time:
                 <span id="leftPlayerTime"></span>
+            </p>
+            <p class="cpInfo"> CP:
+                <span id="leftPlayerCP">0</span>
             </p>
         </div>
         <div id="rightPlayerInfo">
             <h2>Right Player</h2>
-            <p>Time:
+            <p class="timeInfo">Time:
                 <span id="rightPlayerTime"></span>
+            </p>
+            <p class="cpInfo"> CP:
+                <span id="rightPlayerCP">0</span>
             </p>
         </div>
     </body>
@@ -48,6 +54,9 @@
 
             document.getElementById("leftPlayerTime").innerText = json["left"]["time"];
             document.getElementById("rightPlayerTime").innerText = json["right"]["time"];
+
+            document.getElementById("leftPlayerCP").innerText = json["left"]["cp"];
+            document.getElementById("rightPlayerCP").innerText = json["right"]["cp"];
         };
         webSocket.onerror = function (evt) {
             console.log(evt);

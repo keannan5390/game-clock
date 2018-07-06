@@ -83,6 +83,9 @@ public class TimersMenu implements MenuInterface,
 	private ImageButton mRightButton = null;
 	/** Pause button */
 	private Button mPauseButton = null;
+
+	private Button mLeftPlayerCPButton = null;
+	private Button mRightPlayerCPButton = null;
 		
 	// == Labels ==
 	/** Label indicating delay */
@@ -224,7 +227,19 @@ public class TimersMenu implements MenuInterface,
 			else if(v.equals(mPauseButton)) {
 				// We're pausing the game
 				this.paused();
-			} else {
+			}
+			else if(v.equals(mLeftPlayerCPButton)) {
+				Global.GAME_STATE.updatePlayerCP(1, 0);
+				mLeftPlayerCPButton.setText("CP: " + Global.GAME_STATE.numLeftPlayerCP);
+				this.resume();
+			}
+			else if(v.equals(mRightPlayerCPButton))
+			{
+				Global.GAME_STATE.updatePlayerCP(0, 1);
+				mRightPlayerCPButton.setText("CP: " + Global.GAME_STATE.numRightPlayerCP);
+				this.resume();
+			}
+			else {
 				// Check which game button was pressed
 				final boolean leftPlayersTurn = v.equals(mRightButton);
 				if(leftPlayersTurn || v.equals(mLeftButton)) {
@@ -384,8 +399,8 @@ public class TimersMenu implements MenuInterface,
 	void notifyTimeChanged()
 	{
 		String json = "{" +
-				"\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + "}, " +
-				"\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + "}"
+				"\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
+				"\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
 				+ "}";
 
 		mParentActivity.socketServer.sendMessage(json);
@@ -624,6 +639,8 @@ public class TimersMenu implements MenuInterface,
 		mLeftButton = this.getImageButton(R.id.buttonLeftTime);
 		mRightButton = this.getImageButton(R.id.buttonRightTime);
 		mPauseButton = this.getButton(R.id.buttonPause);
+		mLeftPlayerCPButton = this.getButton(R.id.leftPlayerCP);
+		mRightPlayerCPButton = this.getButton(R.id.rightPlayerCP);
 				
 		// Get the ringtone
 		mRingtone = null;
