@@ -33,7 +33,8 @@ public class AndroidSocketServer extends NanoWSD {
     public void sendMessage(String msg)
     {
         try {
-            webSocket.send(msg);
+            if(webSocket != null)
+                webSocket.send(msg);
         }
         catch(IOException ex)
         {

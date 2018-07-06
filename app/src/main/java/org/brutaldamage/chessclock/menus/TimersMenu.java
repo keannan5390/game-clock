@@ -229,14 +229,13 @@ public class TimersMenu implements MenuInterface,
 				this.paused();
 			}
 			else if(v.equals(mLeftPlayerCPButton)) {
-				Global.GAME_STATE.updatePlayerCP(1, 0);
-				mLeftPlayerCPButton.setText("CP: " + Global.GAME_STATE.numLeftPlayerCP);
+			    updatePlayerControlPoints(1, 0);
+
 				this.resume();
 			}
 			else if(v.equals(mRightPlayerCPButton))
 			{
-				Global.GAME_STATE.updatePlayerCP(0, 1);
-				mRightPlayerCPButton.setText("CP: " + Global.GAME_STATE.numRightPlayerCP);
+			    updatePlayerControlPoints(0, 1);
 				this.resume();
 			}
 			else {
@@ -500,6 +499,8 @@ public class TimersMenu implements MenuInterface,
 		// Hide the move count
 		mLeftMoveLabel.setVisibility(View.INVISIBLE);
 		mRightMoveLabel.setVisibility(View.INVISIBLE);
+
+		updatePlayerControlPoints(-Global.GAME_STATE.numLeftPlayerCP, -Global.GAME_STATE.numRightPlayerCP);
 	}
 	
 	/**
@@ -589,6 +590,13 @@ public class TimersMenu implements MenuInterface,
 			mParentActivity.playSound();
 		}
 	}
+
+	void updatePlayerControlPoints(int leftCP, int rightCP)
+    {
+        Global.GAME_STATE.updatePlayerCP(leftCP, rightCP);
+        mLeftPlayerCPButton.setText("CP: " + Global.GAME_STATE.numLeftPlayerCP);
+        mRightPlayerCPButton.setText("CP: " + Global.GAME_STATE.numRightPlayerCP);
+    }
 	/**
 	 * Updates layout based on which button is pressed
 	 * @param buttonPressed the button that was pressed

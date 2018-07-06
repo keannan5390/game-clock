@@ -30,15 +30,20 @@
     <script type="text/javascript">
     var hostname = window.location.hostname;
     var webSocket;
+
     function openSocket() {
         webSocket = new WebSocket("ws://" + hostname + ":8081", "protocolOne");
-        webSocket.onopen = function (evt) { };
+        webSocket.onopen = function (evt) {
+            console.log('sending ping...');
+            webSocket.send('ping', '0');
+        };
         webSocket.onclose = function (evt) {
             console.log(evt);
-            openSocket();
         };
         webSocket.onmessage = function (evt) {
             console.log(evt.data);
+
+            if(evt.data === "ping") return;
 
             var json = JSON.parse(evt.data);
 
@@ -63,11 +68,12 @@
         };
     };
 
-    var timerID = 0;
+
     function keepAlive() {
-        var timeout = 500;
+        var timeout = 3000;
         if (webSocket.readyState == webSocket.OPEN) {
-            webSocket.send('');
+            console.log('sending ping...');
+            webSocket.send('ping', timerId);
         }
 
         timerId = setTimeout(keepAlive, timeout);
@@ -79,6 +85,7 @@
     };
 
     openSocket();
+    keepAlive();
 </script>
 
 </html>
