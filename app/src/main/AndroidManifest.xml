@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Remember to update the versions frequently! -->
+<!-- Version format: release.feature.bug-fix -->
+<!-- For "features," even numbers are stable, odds are unstable -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="org.brutaldamage.chessclock"
+android:versionName="3.0.2" android:versionCode="12">
+    <uses-sdk android:minSdkVersion="8" />
+
+    <!--  Application's activities -->    
+    <application android:icon="@drawable/icon"
+    android:label="@string/app_name">
+        
+        <!-- Main Activity -->
+        <activity android:name=".MainActivity"
+        android:screenOrientation="landscape"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Preference Activity -->
+        <activity android:name=".menus.OptionsMenu" />
+    </application>
+    
+    <!-- List of permissions -->
+    <!-- One for Vibrator -->
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- One for keeping the screen on -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	
+</manifest>

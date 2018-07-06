@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:key="timeNoHandicapGroup"
+	android:title="@string/timePrefGroupNoHandicap">
+	
+		<org.brutaldamage.chessclock.gui.TimeDurationPreference android:key="timeLimit"
+		android:title="@string/gameDurationPref"
+		android:summary="@string/gameDurationSummaryPref"
+		android:defaultValue="300" />
+		
+		<org.brutaldamage.chessclock.gui.TimeDelayPreference android:key="delayTime"
+		android:title="@string/basicDelayPref"
+		android:summary="@string/basicDelaySummaryPref"
+		android:defaultValue="2" />
+	
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:key="timeWithHandicapGroup"
+    android:title="@string/timePrefGroupWithHandicap">
+    
+		<org.brutaldamage.chessclock.gui.TimeDurationPreference android:key="timeLimit"
+        android:title="@string/gameDurationPrefWhite"
+        android:summary="@string/gameDurationSummaryPrefWhite" />
+        
+        <org.brutaldamage.chessclock.gui.TimeDelayPreference android:key="delayTime"
+        android:title="@string/basicDelayPrefWhite"
+        android:summary="@string/basicDelaySummaryPrefWhite" />
+        
+        <org.brutaldamage.chessclock.gui.TimeDurationPreference android:key="timeLimitBlack"
+        android:title="@string/gameDurationPrefBlack"
+        android:summary="@string/gameDurationSummaryPrefBlack"
+        android:defaultValue="300" />
+        
+        <org.brutaldamage.chessclock.gui.TimeDelayPreference android:key="delayTimeBlack"
+        android:title="@string/basicDelayPrefBlack"
+        android:summary="@string/basicDelaySummaryPrefBlack"
+        android:defaultValue="2" />
+        
+    </PreferenceCategory>
+        
+    <PreferenceCategory android:key="advancedOptions"
+    android:title="@string/advancedOptionsGroup">
+    
+        <CheckBoxPreference android:key="enableHandicap"
+        android:title="@string/handicapPref"
+        android:defaultValue="false"
+        android:summary="@string/handicapSummaryPref" />
+        
+        <ListPreference android:key="delayMode"
+        android:title="@string/gameModePref"
+        android:summary="@string/gameModeSummaryPref"
+        android:entries="@array/gameModeNames"
+        android:entryValues="@array/gameModeValues"
+        android:dialogTitle="@string/gameModePref"
+        android:defaultValue="basicDelay" />
+	    
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/feedbackPrefGroup">
+	
+		<RingtonePreference android:key="alarm"
+		android:title="@string/alarmPref"
+		android:summary="@string/alarmSummaryPref"
+		android:ringtoneType="alarm" android:showDefault="true"
+		android:defaultValue="defaultRingtone" />
+		
+		<CheckBoxPreference android:key="vibrate"
+        android:title="@string/vibratePref"
+        android:defaultValue="true"
+        android:summary="@string/vibrateSummaryPref" />
+        
+        <CheckBoxPreference android:key="click"
+		android:title="@string/clickPref"
+		android:defaultValue="true"
+		android:summary="@string/clickSummaryPref" />
+		
+        <CheckBoxPreference android:key="moveCount"
+        android:title="@string/moveCountPref"
+        android:defaultValue="true"
+        android:summary="@string/moveCountSummaryPref" />
+		
+	</PreferenceCategory>
+	
+</PreferenceScreen>

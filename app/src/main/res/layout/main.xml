@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:keepScreenOn="true"
+android:layout_width="fill_parent" android:layout_height="fill_parent"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:chessclock="http://schemas.android.com/apk/res/org.brutaldamage.chessclock">
+
+	<!-- Displaying Game Buttons -->
+	<LinearLayout 
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_alignParentTop="true" android:layout_alignParentLeft="true">
+	
+		<org.brutaldamage.chessclock.gui.ChessButton android:id="@+id/buttonLeftTime"
+		android:layout_width="wrap_content" android:layout_height="fill_parent"
+		android:layout_weight="1" android:scaleType="fitCenter" 
+		chessclock:flipHorizontally="false" />
+		
+		<org.brutaldamage.chessclock.gui.ChessButton android:id="@+id/buttonRightTime"
+		android:layout_width="wrap_content" android:layout_height="fill_parent"
+		android:layout_weight="1" android:scaleType="fitCenter"
+		chessclock:flipHorizontally="true" />
+	
+	</LinearLayout>
+	
+	<!-- Display the player's time on top of the buttons -->
+	<LinearLayout android:id="@+id/layoutTimeLabels"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_centerVertical="true" android:layout_alignParentLeft="true">
+    
+	    <org.brutaldamage.chessclock.gui.OutlinedTextView
+	    android:id="@+id/labelLeftTime" android:layout_weight="1"
+	    android:text="0:00" android:textSize="80px"
+	    android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:typeface="monospace" android:textStyle="bold"
+	    android:textColor="#ffffffff" chessclock:outlineColor="#ff000000" />
+	       
+	    <org.brutaldamage.chessclock.gui.OutlinedTextView
+	    android:id="@+id/labelRightTime" android:layout_weight="1"
+	    android:text="0:00" android:textSize="80px"
+	    android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:typeface="monospace" android:textStyle="bold"
+	    android:textColor="#ffffffff" chessclock:outlineColor="#ff000000" />
+	    
+    </LinearLayout>
+    
+    <!-- Display the incremented delay above player's time -->
+    <LinearLayout android:layout_above="@+id/layoutTimeLabels"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true">
+    
+	    <org.brutaldamage.chessclock.gui.OutlinedTextView
+	    android:id="@+id/labelLeftIncreaseTime" android:layout_weight="1"
+	    android:text="+0:00" android:textSize="60px"
+	    android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:typeface="monospace" android:textStyle="bold"
+	    android:textColor="#ff10e605" chessclock:outlineColor="#ff000000"
+	    android:visibility="invisible" />
+	    
+	    <org.brutaldamage.chessclock.gui.OutlinedTextView
+	    android:id="@+id/labelRightIncreaseTime" android:layout_weight="1"
+	    android:text="+0:00" android:textSize="60px"
+	    android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:typeface="monospace" android:textStyle="bold"
+	    android:textColor="#ff10e605" chessclock:outlineColor="#ff000000"
+	    android:visibility="invisible" />
+	
+	</LinearLayout>
+	
+    <!-- Display the player's move count -->
+    <LinearLayout android:layout_below="@+id/layoutTimeLabels"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true">
+    
+        <org.brutaldamage.chessclock.gui.OutlinedTextView
+        android:id="@+id/labelLeftMoveCount" android:layout_weight="1"
+        android:text="@string/moveLabelText" android:textSize="60px"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:typeface="monospace" android:textStyle="bold"
+        android:textColor="#ffc2c2c2" chessclock:outlineColor="#ff000000"
+        android:visibility="invisible" />
+        
+        <org.brutaldamage.chessclock.gui.OutlinedTextView
+        android:id="@+id/labelRightMoveCount" android:layout_weight="1"
+        android:text="@string/moveLabelText" android:textSize="60px"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:typeface="monospace" android:textStyle="bold"
+        android:textColor="#ffc2c2c2" chessclock:outlineColor="#ff000000"
+        android:visibility="invisible" />
+    
+    </LinearLayout>
+    
+	<!-- Displaying Delay Label -->
+	<TextView android:id="@+id/labelDelay"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:padding="5px"
+	android:text="@string/delayLabelText" android:background="#b0000000"
+	android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+	android:typeface="monospace" android:textStyle="bold" android:textSize="60px"
+	android:visibility="invisible" />
+	
+	<!-- Displaying Pause Button -->
+    <Button android:id="@+id/buttonPause" android:text="@string/pauseButtonText"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:typeface="monospace" android:textSize="40px" android:textStyle="bold"
+    android:layout_centerHorizontal="true" android:layout_alignParentBottom="true" />
+    
+    <!-- Declare an external layout -->
+	<RelativeLayout android:id="@+id/layoutOverlap"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:visibility="invisible" android:background="#80000000"
+    android:layout_alignParentTop="true" android:layout_alignParentLeft="true" />
+    
+</RelativeLayout>

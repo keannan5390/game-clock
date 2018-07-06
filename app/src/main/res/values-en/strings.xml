@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Application-related strings -->
+    <string name="app_name">Chess Clock App</string>
+
+	<!-- Label strings -->
+    <string name="delayLabelText">Delay -</string>
+    <string name="pauseLabelText">Paused</string>
+    <string name="timesUpLabelText">Times Up!</string>
+    <string name="moveLabelText">Move</string>
+
+	<!-- Button strings -->
+    <string name="playerButtonText">Press to Start</string>
+    <string name="pauseButtonText">Pause</string>
+	<string name="resumeButtonText">Resume</string>
+    <string name="newGameButtonText">New Game</string>
+	<string name="optionsButtonText">Options</string>
+	
+    <!-- Options strings, time (no handicap) -->
+    <string name="timePrefGroupNoHandicap">Time (No Handicap)</string>
+    <string name="gameDurationPref">Game Duration</string>
+    <string name="gameDurationSummaryPref">Configure each players\' duration</string>
+    <string name="basicDelayPref">Delay Duration</string>
+    <string name="basicDelaySummaryPref">Configure the time delayed before a player\'s turn</string>
+    <string name="fischerPref">Incremented Time</string>
+    <string name="fischerSummaryPref">Configure the time incremented to a player\'s remaining duration</string>
+    <string name="bronsteinPref">Max Time Increment</string>
+    <string name="bronsteinSummaryPref">Configure the maximum time incremented to a player\'s remaining duration</string>
+    
+    <!-- Options strings, time (with handicap, white player) -->
+    <string name="timePrefGroupWithHandicap">Time (With Handicap)</string>
+    <string name="gameDurationPrefWhite">White Player\'s Duration</string>
+    <string name="gameDurationSummaryPrefWhite">Configure white player\'s duration</string>
+    <string name="basicDelayPrefWhite">White Player\'s Delay</string>
+    <string name="basicDelaySummaryPrefWhite">Configure the time delayed before white player\'s turn</string>
+    <string name="fischerPrefWhite">White Player\'s Increment</string>
+    <string name="fischerSummaryPrefWhite">Configure the time incremented to white player\'s remaining duration</string>
+    <string name="bronsteinPrefWhite">White Player\'s Max Increment</string>
+    <string name="bronsteinSummaryPrefWhite">Configure the maximum time incremented to white player\'s remaining duration</string>
+    
+    <!-- Options strings, time (with handicap, black player) -->
+    <string name="gameDurationPrefBlack">Black Player\'s Duration</string>
+    <string name="gameDurationSummaryPrefBlack">Configure the black player\'s duration</string>
+    <string name="basicDelayPrefBlack">Black Player\'s Delay</string>
+    <string name="basicDelaySummaryPrefBlack">Configure the time delayed before black player\'s turn</string>
+    <string name="fischerPrefBlack">Black Player\'s Increment</string>
+    <string name="fischerSummaryPrefBlack">Configure the time incremented to black player\'s remaining duration</string>
+    <string name="bronsteinPrefBlack">Black Player\'s Max Increment</string>
+    <string name="bronsteinSummaryPrefBlack">Configure the maximum time incremented to black player\'s remaining duration</string>
+    
+    <!-- Options strings, rules -->
+    <string name="advancedOptionsGroup">Advanced Options</string>
+    <string name="handicapPref">Enable Handicap</string>
+    <string name="handicapSummaryPref">Allow each player to have different game and delay durations</string>
+    <string name="gameModePref">Game Rules</string>
+    <string name="gameModeSummaryPref">Configure the timer\'s behavior to Basic Delay, Fischer, Bronstein, etc.</string>
+    
+    <!-- Options strings, feedback -->
+    <string name="feedbackPrefGroup">Feedback</string>
+    <string name="alarmPref">Time Expired Alert</string>
+    <string name="alarmSummaryPref">Configure the alarm indicating a player expires</string>
+    <string name="vibratePref">Enable Vibration</string>
+    <string name="vibrateSummaryPref">Vibrate the phone when any button is pressed</string>
+    <string name="clickPref">Enable \"Click\" Sound</string>
+    <string name="clickSummaryPref">Play a \"click\" sound when pressing a game button</string>
+    <string name="moveCountPref">Display Move Count</string>
+    <string name="moveCountSummaryPref">Display the number of moves each player played</string>
+    
+    <!-- Conditional-related strings -->
+    <string name="disabledSummaryPref">Can only be configured at the beginning of a game</string>
+    <string name="disabledDelaySummaryPref">Current game mode contains no delay.</string>
+    <string name="disabledHandicapSummaryPref">Configurable when handicap is enabled.</string>
+    <string name="disabledNoHandicapSummaryPref">Configurable when handicap is disabled.</string>
+</resources>
