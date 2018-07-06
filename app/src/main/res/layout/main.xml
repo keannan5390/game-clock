@@ -23,23 +23,7 @@ xmlns:chessclock="http://schemas.android.com/apk/res/org.brutaldamage.chessclock
 	</LinearLayout>
 
 	<!-- CP Points on top of the buttons -->
-	<LinearLayout
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_marginTop="20px">
-		<Button android:id="@+id/leftPlayerCP"
-			android:layout_marginLeft="20px" android:layout_marginRight="20px"
-			android:layout_width="80px" android:layout_height="wrap_content"
-			android:text="CP: 0" android:layout_weight="1"
-			android:typeface="monospace" android:textStyle="bold"
-			android:textSize="20px" />
-		<Button android:id="@+id/rightPlayerCP"
-			android:layout_marginLeft="20px" android:layout_marginRight="20px"
-			android:layout_width="80px" android:layout_height="wrap_content"
-			android:text="CP: 0" android:layout_weight="1"
-			android:typeface="monospace" android:textStyle="bold"
-			android:textSize="20px" />
-	</LinearLayout>
+
 
 	<!-- Display the player's time on top of the buttons -->
 	<LinearLayout android:id="@+id/layoutTimeLabels"
@@ -116,13 +100,33 @@ xmlns:chessclock="http://schemas.android.com/apk/res/org.brutaldamage.chessclock
 	android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
 	android:typeface="monospace" android:textStyle="bold" android:textSize="60px"
 	android:visibility="invisible" />
-	
-	<!-- Displaying Pause Button -->
-    <Button android:id="@+id/buttonPause" android:text="@string/pauseButtonText"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:typeface="monospace" android:textSize="40px" android:textStyle="bold"
-    android:layout_centerHorizontal="true" android:layout_alignParentBottom="true" />
-    
+
+	<!-- displaying game buttons -->
+	<LinearLayout
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true" android:layout_alignParentLeft="true">
+
+		<!--  Displaying Settings Button -->
+		<Button android:id="@+id/leftPlayerCP" android:text="CP: 0"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:typeface="monospace" android:textStyle="normal" android:textSize="30px"
+			android:layout_weight="1" android:layout_alignParentBottom="true" />
+
+		<!-- Displaying Resume Button -->
+		<Button android:id="@+id/buttonPause" android:text="@string/pauseButtonText"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:typeface="monospace" android:textStyle="bold" android:textSize="40px"
+			android:layout_weight="0" android:layout_alignParentBottom="true" />
+
+		<!-- Displaying New Game Button -->
+		<Button android:id="@+id/rightPlayerCP" android:text="CP: 0"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:typeface="monospace" android:textStyle="normal" android:textSize="30px"
+			android:layout_weight="1" android:layout_alignParentBottom="true" />
+
+	</LinearLayout>
+
+
     <!-- Declare an external layout -->
 	<RelativeLayout android:id="@+id/layoutOverlap"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"

@@ -395,16 +395,6 @@ public class TimersMenu implements MenuInterface,
 	/* ===========================================================
 	 * Package-space Methods
 	 * =========================================================== */
-	void notifyTimeChanged()
-	{
-		String json = "{" +
-				"\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
-				"\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
-				+ "}";
-
-		mParentActivity.socketServer.sendMessage(json);
-	}
-
 	/**
 	 * Updates the text on {@link mLeftButton}, {@link mRightButton},
 	 * and {@link mDelayLabel}

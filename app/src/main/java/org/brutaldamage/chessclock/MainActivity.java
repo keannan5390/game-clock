@@ -43,7 +43,6 @@ import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import org.brutaldamage.chessclock.http.AndroidHttpServer;
-import org.brutaldamage.chessclock.http.AndroidSocketServer;
 import org.brutaldamage.chessclock.menus.OptionsMenu;
 import org.brutaldamage.chessclock.menus.TimersMenu;
 
@@ -252,12 +251,10 @@ public class MainActivity extends Activity {
 
 	//region Http Server Stuff
 
-	public AndroidSocketServer socketServer;
     public AndroidHttpServer httpServer;
 
 	private static boolean isStarted = false;
 	private static final int DEFAULT_PORT = 8080;
-    private static final int DEFAULT_SOCKET_PORT = 8081;
 	private BroadcastReceiver broadcastReceiverNetworkState;
 
 
@@ -270,8 +267,6 @@ public class MainActivity extends Activity {
 				if (port == 0) {
 					throw new Exception();
 				}
-				socketServer = new AndroidSocketServer(DEFAULT_SOCKET_PORT, false);
-				socketServer.start();
 				httpServer = new AndroidHttpServer(this, DEFAULT_PORT);
 				httpServer.start();
 				return true;
@@ -285,13 +280,11 @@ public class MainActivity extends Activity {
 
 	private boolean stopAndroidWebServer() {
 	    if(isStarted) {
-            if (socketServer != null) {
-                socketServer.stop();
-            }
             if (httpServer != null) {
                 httpServer.stop();
+				return true;
             }
-            return true;
+
         }
 		return false;
 	}
