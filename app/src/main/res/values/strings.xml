@@ -19,7 +19,7 @@
     <!-- Options strings, http url -->
     <string name="httpPrefGroup">Http Server</string>
     <string name="httpUrlPref">Url</string>
-    <string name="httpUrlSummaryPref">Configure each players\' duration</string>
+    <string name="httpUrlSummaryPref">Tap to view remote URL for viewing game info in a web browser</string>
 
     <!-- Options strings, first player -->
     <string name="firstPlayerPrefGroup">Players</string>
