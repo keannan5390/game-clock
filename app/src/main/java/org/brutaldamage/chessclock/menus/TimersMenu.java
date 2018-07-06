@@ -381,6 +381,16 @@ public class TimersMenu implements MenuInterface,
 	/* ===========================================================
 	 * Package-space Methods
 	 * =========================================================== */
+	void notifyTimeChanged()
+	{
+		String json = "{" +
+				"\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + "}, " +
+				"\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + "}"
+				+ "}";
+
+		mParentActivity.socketServer.sendMessage(json);
+	}
+
 	/**
 	 * Updates the text on {@link mLeftButton}, {@link mRightButton},
 	 * and {@link mDelayLabel}
@@ -537,20 +547,15 @@ public class TimersMenu implements MenuInterface,
 		// Check if this button press starts the game
 		if(Global.GAME_STATE.timerCondition == TimerCondition.STARTING) {
 			// Set which play is white
-			Global.GAME_STATE.leftIsWhite = !leftPlayersTurn;
+			Global.GAME_STATE.leftIsWhite = true;
 			
 			// Reset the time
 			Global.GAME_STATE.resetTime();
 			
 			// Update the color of the game buttons
-			final int leftButtonID, rightButtonID;
-			if(Global.GAME_STATE.leftIsWhite) {
-				leftButtonID = R.drawable.white_button;
-				rightButtonID = R.drawable.black_button;
-			} else {
-				leftButtonID = R.drawable.black_button;
-				rightButtonID = R.drawable.white_button;
-			}
+			final int leftButtonID = R.drawable.white_button;
+			final int rightButtonID = R.drawable.black_button;
+
 			mLeftButton.setImageResource(leftButtonID);
 			mRightButton.setImageResource(rightButtonID);
 		}

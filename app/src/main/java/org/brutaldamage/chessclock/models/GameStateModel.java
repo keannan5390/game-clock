@@ -251,11 +251,11 @@ public class GameStateModel implements SaveStateModel {
 		if(leftPlayersTurn) {
 			// It's left player's turn
 			// Increment right player's move count
-			++numRightPlayerMoves;
+			++numLeftPlayerMoves;
 		} else {
 			// It's left player's turn
 			// Increment right player's move count
-			++numLeftPlayerMoves;
+			++numRightPlayerMoves;
 		}
 		
 		// Determine which player's time to increment

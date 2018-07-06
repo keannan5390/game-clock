@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Application-related strings -->
-    <string name="app_name">Chess Clock App</string>
+    <string name="app_name">BDmg Clock</string>
 
 	<!-- Label strings -->
     <string name="delayLabelText">Delay -</string>
@@ -18,7 +18,13 @@
 
     <!-- Options strings, http url -->
     <string name="httpPrefGroup">Http Server</string>
-    <string name="httpUrl">Url</string>
+    <string name="httpUrlPref">Url</string>
+    <string name="httpUrlSummaryPref">Configure each players\' duration</string>
+
+    <!-- Options strings, first player -->
+    <string name="firstPlayerPrefGroup">Players</string>
+    <string name="firstPlayerPref">First Player</string>
+    <string name="firstPlayerSummaryPref">Select which player goes first (left or right)</string>
 	
     <!-- Options strings, time (no handicap) -->
     <string name="timePrefGroupNoHandicap">Time (No Handicap)</string>

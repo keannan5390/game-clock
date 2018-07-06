@@ -36,5 +36,8 @@ dependencies {
 
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
-    implementation 'org.nanohttpd:nanohttpd:2.2.0'
+    implementation group: 'org.nanohttpd', name: 'nanohttpd', version: '2.3.0'
+    implementation group: 'org.nanohttpd', name: 'nanohttpd-websocket', version: '2.3.0'
+
+
 }

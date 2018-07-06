@@ -40,6 +40,8 @@ public class OptionsModel implements SaveStateModel {
 	/* ===========================================================
 	 * Constants
 	 * =========================================================== */
+	public static final String KEY_FIRST_PLAYER = "firstPlayer";
+
 	// == Stored key values ==
 	// == White Player's time ==
 	/** The saved key value for time limit */

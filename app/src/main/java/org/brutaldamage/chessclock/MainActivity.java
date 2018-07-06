@@ -40,11 +40,10 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import org.brutaldamage.chessclock.R;
 import org.brutaldamage.chessclock.http.AndroidHttpServer;
+import org.brutaldamage.chessclock.http.AndroidSocketServer;
 import org.brutaldamage.chessclock.menus.OptionsMenu;
 import org.brutaldamage.chessclock.menus.TimersMenu;
 
@@ -99,13 +98,25 @@ public class MainActivity extends Activity {
 		// START WEB SERVER
 		setIpAccess();
 
-		startAndroidWebServer();
-
 		// INIT BROADCAST RECEIVER TO LISTEN NETWORK STATE CHANGED
 		initBroadcastReceiverNetworkStateChanged();
     }
 
-	/**
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        startAndroidWebServer();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        stopAndroidWebServer();
+    }
+
+    /**
      * Called when the activity pauses.
      * @see android.app.Activity#onPause()
      */
@@ -241,22 +252,28 @@ public class MainActivity extends Activity {
 
 	//region Http Server Stuff
 
-	private AndroidHttpServer androidWebServer;
+	public AndroidSocketServer socketServer;
+    public AndroidHttpServer httpServer;
+
 	private static boolean isStarted = false;
 	private static final int DEFAULT_PORT = 8080;
+    private static final int DEFAULT_SOCKET_PORT = 8081;
 	private BroadcastReceiver broadcastReceiverNetworkState;
 
 
 	//region Start And Stop AndroidWebServer
 	private boolean startAndroidWebServer() {
-		if (!isStarted) {
+		if (!isStarted)
+		{
 			int port = DEFAULT_PORT;
 			try {
 				if (port == 0) {
 					throw new Exception();
 				}
-				androidWebServer = new AndroidHttpServer(port);
-				androidWebServer.start();
+				socketServer = new AndroidSocketServer(DEFAULT_SOCKET_PORT, false);
+				socketServer.start();
+				httpServer = new AndroidHttpServer(this, DEFAULT_PORT);
+				httpServer.start();
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -267,10 +284,15 @@ public class MainActivity extends Activity {
 	}
 
 	private boolean stopAndroidWebServer() {
-		if (isStarted && androidWebServer != null) {
-			androidWebServer.stop();
-			return true;
-		}
+	    if(isStarted) {
+            if (socketServer != null) {
+                socketServer.stop();
+            }
+            if (httpServer != null) {
+                httpServer.stop();
+            }
+            return true;
+        }
 		return false;
 	}
 
@@ -287,7 +309,7 @@ public class MainActivity extends Activity {
 		WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
 		final String formatedIpAddress = String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
-		return "http://" + formatedIpAddress + ":";
+		return "http://" + formatedIpAddress + ":" + DEFAULT_PORT;
 	}
 
 	private void initBroadcastReceiverNetworkStateChanged() {

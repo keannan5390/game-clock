@@ -91,7 +91,7 @@ public class DecrementTimerTask implements Runnable {
 		
 		// Update the button's text
 		mMenu.updateButtonAndLabelText();
-		
+		mMenu.notifyTimeChanged();
 	}
 	
 	/* ===========================================================

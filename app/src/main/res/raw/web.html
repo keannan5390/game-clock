@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <div id="turnInfo">
+            <h2>Turn:
+                <span id="turn"></span>
+            </h2>
+        </div>
+
+        <div id="leftPlayerInfo">
+            <h2>Left Player</h2>
+            <p>Time:
+                <span id="leftPlayerTime"></span>
+            </p>
+        </div>
+        <div id="rightPlayerInfo">
+            <h2>Right Player</h2>
+            <p>Time:
+                <span id="rightPlayerTime"></span>
+            </p>
+        </div>
+    </body>
+    <script type="text/javascript">
+    var hostname = window.location.hostname;
+    var webSocket;
+    function openSocket() {
+        webSocket = new WebSocket("ws://" + hostname + ":8081", "protocolOne");
+        webSocket.onopen = function (evt) { };
+        webSocket.onclose = function (evt) {
+            console.log(evt);
+            openSocket();
+        };
+        webSocket.onmessage = function (evt) {
+            console.log(evt.data);
+
+            var json = JSON.parse(evt.data);
+
+            var leftTurn = json["left"]["turn"];
+            var rightTurn = json["right"]["turn"];
+
+            var turnText = "";
+            if (leftTurn == rightTurn)
+                turnText = leftTurn + "B";
+            else turnText = leftTurn + "A";
+
+            document.getElementById("turn").innerText = turnText;
+
+            document.getElementById("leftPlayerTime").innerText = json["left"]["time"];
+            document.getElementById("rightPlayerTime").innerText = json["right"]["time"];
+        };
+        webSocket.onerror = function (evt) {
+            console.log(evt);
+        };
+    };
+
+    var timerID = 0;
+    function keepAlive() {
+        var timeout = 500;
+        if (webSocket.readyState == webSocket.OPEN) {
+            webSocket.send('');
+        }
+
+        timerId = setTimeout(keepAlive, timeout);
+    };
+    function cancelKeepAlive() {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+    };
+
+    openSocket();
+</script>
+
+</html>

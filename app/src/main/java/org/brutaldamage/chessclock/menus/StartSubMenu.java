@@ -98,17 +98,17 @@ public class StartSubMenu extends SubMenu {
 				// Open the options menu
 				mParentActivity.displayOptionsMenu();
 			} else {
-				final boolean leftPlayersTurn = v.equals(mRightButton);
-				if(leftPlayersTurn || v.equals(mLeftButton)) {
-					// Hide this menu
-					this.hideMenu();
-					
-					// Update who's turn it is
-					mParentMenu.updatePlayersTurn(leftPlayersTurn);
-					
-					// Resume the timer
-					mParentMenu.resume();
-				}
+
+				final boolean leftPlayerStarts = v.equals(mLeftButton);
+
+				// Hide this menu
+				this.hideMenu();
+
+				// Update who's turn it is
+				mParentMenu.updatePlayersTurn(leftPlayerStarts);
+
+				// Resume the timer
+				mParentMenu.resume();
 			}
 		}
 	}
