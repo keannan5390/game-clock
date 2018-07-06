@@ -115,6 +115,14 @@ public class GameStateModel implements SaveStateModel {
 	public int numLeftPlayerCP = 0;
 	public int numRightPlayerCP = 0;
 
+	private int turnCount = 1;
+	private int turnIndex = 0;
+
+	public String getTurnDisplay()
+	{
+		return String.valueOf(turnCount) + (turnIndex == 0 ? "A" : "B");
+	}
+
 	// == Listener ==
 	private OnTimeIncreasedListener mListener = null;
 	
@@ -247,7 +255,25 @@ public class GameStateModel implements SaveStateModel {
 		numLeftPlayerCP += leftCP;
 		numRightPlayerCP += rightCP;
 	}
-	
+
+	public void incrementTurn()
+	{
+		if(turnIndex == 1)
+		{
+			turnIndex = 0;
+			++turnCount;
+		}
+		else {
+			turnIndex = 1;
+		}
+	}
+
+	public void resetTurn()
+	{
+		turnIndex = 0;
+		turnCount = 1;
+	}
+
 	/**
 	 * TODO: add a description
 	 * @param leftPlayerIsNext

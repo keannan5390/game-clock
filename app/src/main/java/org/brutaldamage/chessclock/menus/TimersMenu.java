@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
@@ -86,6 +87,7 @@ public class TimersMenu implements MenuInterface,
 
 	private Button mLeftPlayerCPButton = null;
 	private Button mRightPlayerCPButton = null;
+	private Button mTurnButton = null;
 		
 	// == Labels ==
 	/** Label indicating delay */
@@ -98,10 +100,6 @@ public class TimersMenu implements MenuInterface,
 	private OutlinedTextView mLeftIncreaseLabel = null;
 	/** Right player's label indicating time increase */
 	private OutlinedTextView mRightIncreaseLabel = null;
-	/** Left player's label indicating move count */
-	private OutlinedTextView mLeftMoveLabel = null;
-	/** Right player's label indicating move count */
-	private OutlinedTextView mRightMoveLabel = null;
 	
 	// == Animations ==
 	/** Shows the delay label */
@@ -119,7 +117,6 @@ public class TimersMenu implements MenuInterface,
 	// == Misc. ==
 	/** Sound of alarm */
 	private Ringtone mRingtone = null;
-	private int mMoveStringLength = 0;
 	private final StringBuffer mStringGenerator = new StringBuffer();
 	
 	/* ===========================================================
@@ -238,6 +235,12 @@ public class TimersMenu implements MenuInterface,
 			    updatePlayerControlPoints(0, 1);
 				this.resume();
 			}
+			else if(v.equals(mTurnButton))
+			{
+				incrementTurn();
+
+				this.resume();
+			}
 			else {
 				// Check which game button was pressed
 				final boolean leftPlayersTurn = v.equals(mRightButton);
@@ -293,8 +296,6 @@ public class TimersMenu implements MenuInterface,
 		mRightLabel.setWidth(rightWidth);
 		mLeftIncreaseLabel.setWidth(leftWidth);
 		mRightIncreaseLabel.setWidth(rightWidth);
-		mLeftMoveLabel.setWidth(leftWidth);
-		mRightMoveLabel.setWidth(rightWidth);
 		
 		// Update the text size on everything
 		mLeftLabel.setTextSize(MainActivity.msTextSize);
@@ -303,8 +304,6 @@ public class TimersMenu implements MenuInterface,
 		mDelayLabel.setTextSize(MainActivity.msTextSize * 0.7f);
 		mLeftIncreaseLabel.setTextSize(MainActivity.msTextSize * 0.6f);
 		mRightIncreaseLabel.setTextSize(MainActivity.msTextSize * 0.6f);
-		mLeftMoveLabel.setTextSize(MainActivity.msTextSize * 0.4f);
-		mRightMoveLabel.setTextSize(MainActivity.msTextSize * 0.4f);
 		
 		// Update the sub menu
 		mStartMenu.setupMenu();
@@ -423,23 +422,6 @@ public class TimersMenu implements MenuInterface,
 				mDelayLabel.startAnimation(mShowAnimation);
 			}
 			
-			// Update the move counts
-			if(Global.OPTIONS.displayMoveCount) {
-				// Hide the move count
-				mLeftMoveLabel.setVisibility(View.VISIBLE);
-				mRightMoveLabel.setVisibility(View.VISIBLE);
-				
-				// Update Left player's move count texts
-				mStringGenerator.delete(mMoveStringLength, mStringGenerator.length());
-				mStringGenerator.append(Global.GAME_STATE.numLeftPlayerMoves);
-				mLeftMoveLabel.setText(mStringGenerator.toString());
-				
-				// Update Left player's move count texts
-				mStringGenerator.delete(mMoveStringLength, mStringGenerator.length());
-				mStringGenerator.append(Global.GAME_STATE.numRightPlayerMoves);
-				mRightMoveLabel.setText(mStringGenerator.toString());
-			}
-			
 			// Update the text
 			mDelayLabel.setText(delayText);
 		}
@@ -485,11 +467,9 @@ public class TimersMenu implements MenuInterface,
 		// Hide the increment label
 		mLeftIncreaseLabel.setVisibility(View.INVISIBLE);
 		mRightIncreaseLabel.setVisibility(View.INVISIBLE);
-		
-		// Hide the move count
-		mLeftMoveLabel.setVisibility(View.INVISIBLE);
-		mRightMoveLabel.setVisibility(View.INVISIBLE);
 
+
+		Global.GAME_STATE.resetTurn();
 		updatePlayerControlPoints(-Global.GAME_STATE.numLeftPlayerCP, -Global.GAME_STATE.numRightPlayerCP);
 	}
 	
@@ -587,6 +567,13 @@ public class TimersMenu implements MenuInterface,
         mLeftPlayerCPButton.setText("CP: " + Global.GAME_STATE.numLeftPlayerCP);
         mRightPlayerCPButton.setText("CP: " + Global.GAME_STATE.numRightPlayerCP);
     }
+
+    void incrementTurn()
+	{
+		Global.GAME_STATE.incrementTurn();
+		mTurnButton.setText("Turn " + Global.GAME_STATE.getTurnDisplay());
+	}
+
 	/**
 	 * Updates layout based on which button is pressed
 	 * @param buttonPressed the button that was pressed
@@ -605,6 +592,8 @@ public class TimersMenu implements MenuInterface,
 		
 		// Make the pause button visible
 		mPauseButton.setVisibility(View.VISIBLE);
+		mTurnButton.setVisibility(View.VISIBLE);
+		mTurnButton.setText(Global.GAME_STATE.getTurnDisplay());
 		
 		// Start the timer
 		mTask.reset();
@@ -628,10 +617,6 @@ public class TimersMenu implements MenuInterface,
 			mParentActivity.findViewById(R.id.labelLeftIncreaseTime);
 		mRightIncreaseLabel = (OutlinedTextView)
 			mParentActivity.findViewById(R.id.labelRightIncreaseTime);
-		mLeftMoveLabel = (OutlinedTextView)
-			mParentActivity.findViewById(R.id.labelLeftMoveCount);
-		mRightMoveLabel = (OutlinedTextView)
-			mParentActivity.findViewById(R.id.labelRightMoveCount);
 		
 		// Grab the buttons
 		mLeftButton = this.getImageButton(R.id.buttonLeftTime);
@@ -639,6 +624,7 @@ public class TimersMenu implements MenuInterface,
 		mPauseButton = this.getButton(R.id.buttonPause);
 		mLeftPlayerCPButton = this.getButton(R.id.leftPlayerCP);
 		mRightPlayerCPButton = this.getButton(R.id.rightPlayerCP);
+		mTurnButton = this.getButton(R.id.buttonTurn);
 				
 		// Get the ringtone
 		mRingtone = null;
@@ -662,7 +648,6 @@ public class TimersMenu implements MenuInterface,
 		mStringGenerator.delete(0, mStringGenerator.length());
 		mStringGenerator.append(moveText);
 		mStringGenerator.append(":");
-		mMoveStringLength = mStringGenerator.length();
 	}
 	
 	/**
@@ -675,7 +660,8 @@ public class TimersMenu implements MenuInterface,
 		// Disable game buttons, hide pause
 		mLeftButton.setEnabled(false);
 		mRightButton.setEnabled(false);
-		mPauseButton.setVisibility(View.INVISIBLE);	
+		mPauseButton.setVisibility(View.INVISIBLE);
+		mTurnButton.setVisibility(View.INVISIBLE);
 	}
 	
 	/**

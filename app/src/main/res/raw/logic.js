@@ -8,21 +8,7 @@ function keepAlive() {
         function (json) {
             console.log(json);
 
-            var leftTurn = json["left"]["turn"];
-            var rightTurn = json["right"]["turn"];
-            var turn = Math.max(leftTurn, rightTurn);
-
-            var turnText = "";
-            if (leftTurn == rightTurn) {
-                if (turn === 0)
-                    turn = 1;
-
-                turnText = turn + "B";
-            }
-            else
-                turnText = turn + "A";
-
-            document.getElementById("turn").innerText = turnText;
+            document.getElementById("turn").innerText = json["turn"];
 
             document.getElementById("leftPlayerTime").innerText = json["left"]["time"];
             document.getElementById("rightPlayerTime").innerText = json["right"]["time"];

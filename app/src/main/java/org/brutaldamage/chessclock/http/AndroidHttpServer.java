@@ -31,8 +31,9 @@ public class AndroidHttpServer extends NanoHTTPD {
         if(session.getUri().contains("data"))
         {
             String json = "{" +
-                    "\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numLeftPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
-                    "\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"turn\": " + Global.GAME_STATE.numRightPlayerMoves + ", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
+                    "\"turn\": \""+  Global.GAME_STATE.getTurnDisplay() + "\"," +
+                    "\"left\":{ \"time\": \"" + Global.GAME_STATE.leftPlayerTime() + "\", \"cp\": " + Global.GAME_STATE.numLeftPlayerCP + "}, " +
+                    "\"right\": { \"time\": \" "+Global.GAME_STATE.rightPlayerTime() + "\", \"cp\": " + Global.GAME_STATE.numRightPlayerCP + "}"
                     + "}";
 
             return newFixedLengthResponse(Response.Status.OK, "application/json", json);
