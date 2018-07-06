@@ -26,6 +26,7 @@ public class AndroidHttpServer extends NanoHTTPD {
         String html = "<html>\n" +
                 " <meta http-equiv=\"refresh\" content=\"0.5\" />" +
                 "<body>\n" +
+                "   <h1 id=\"title\">Brutal Damage Game Clock</1>" +
                 "    <div id=\"player1Info\">\n" +
                 "        <h2>Player 1</h2>\n" +
                 "        <p>Time: <span id=\"player1Time\">" + player1Time +"</span></p>\n" +
