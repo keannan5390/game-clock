@@ -1,5 +1,3 @@
-[![Build status](https://build.appcenter.ms/v0.1/apps/1d14d39d-eea2-4fa6-a3fb-f6705c8097bb/branches/master/badge)](https://appcenter.ms)
-
 ## Brutal Damage Game Clock
 
 This is the chess clock app that we use during our weekly live streams to display the game clock on the stream.
